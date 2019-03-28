@@ -30,16 +30,17 @@ public class SwaggerConfig{
                 .paths(PathSelectors.any())
                 .build();
     }
-//
-//    @Bean
-//    public Docket classApi() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
-//                .select()
-//                .apis(RequestHandlerSelectors.basePackage(""))
-//                .paths(PathSelectors.any())
-//                .build();
-//    }
+
+    //要使gateway配置的swagger转发，本配置里面需要有一个default的groupName
+    @Bean
+    public Docket classApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage(""))
+                .paths(PathSelectors.any())
+                .build();
+    }
 
 
     private ApiInfo apiInfo() {
