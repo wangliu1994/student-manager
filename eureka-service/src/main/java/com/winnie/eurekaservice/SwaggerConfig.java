@@ -31,8 +31,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("学生管理系统")
-                .description("学生在校信息管理")
+                .title("管理系统")
+                .description("信息管理")
                 .termsOfServiceUrl("http://127.0.0.1:8081/")
                 .contact(new Contact("winnie", "winnie.com", "wangliu023@qq.com"))
                 .version("1.0")

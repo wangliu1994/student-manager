@@ -24,6 +24,7 @@ public class SwaggerConfig{
     public Docket studentApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                .groupName("hhh")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.winnie.studentservice"))
                 .paths(PathSelectors.any())
