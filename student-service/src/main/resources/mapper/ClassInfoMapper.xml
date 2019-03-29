@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.winnie.studentservice.dao.ClassInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.winnie.studentservice.model.ClassInfo" >
+<mapper namespace="com.winnie.student.dao.ClassInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.winnie.student.model.ClassInfo" >
     <constructor >
       <idArg column="class_id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     class_id, name, monitor_id, excellent, english_teacher_id, math_teacher_id, chinese_teacher_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.winnie.studentservice.model.ClassInfoExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.winnie.student.model.ClassInfoExample" >
     select
     <if test="distinct" >
       distinct
@@ -97,13 +97,13 @@
     delete from tb_class
     where class_id = #{classId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.winnie.studentservice.model.ClassInfoExample" >
+  <delete id="deleteByExample" parameterType="com.winnie.student.model.ClassInfoExample" >
     delete from tb_class
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.winnie.studentservice.model.ClassInfo" >
+  <insert id="insert" parameterType="com.winnie.student.model.ClassInfo" >
     insert into tb_class (class_id, name, monitor_id, 
       excellent, english_teacher_id, math_teacher_id, 
       chinese_teacher_id)
@@ -111,7 +111,7 @@
       #{excellent,jdbcType=INTEGER}, #{englishTeacherId,jdbcType=VARCHAR}, #{mathTeacherId,jdbcType=VARCHAR}, 
       #{chineseTeacherId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.winnie.studentservice.model.ClassInfo" >
+  <insert id="insertSelective" parameterType="com.winnie.student.model.ClassInfo" >
     insert into tb_class
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="classId != null" >
@@ -160,7 +160,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.winnie.studentservice.model.ClassInfoExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.winnie.student.model.ClassInfoExample" resultType="java.lang.Integer" >
     select count(*) from tb_class
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -208,7 +208,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.winnie.studentservice.model.ClassInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.winnie.student.model.ClassInfo" >
     update tb_class
     <set >
       <if test="name != null" >
@@ -232,7 +232,7 @@
     </set>
     where class_id = #{classId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.winnie.studentservice.model.ClassInfo" >
+  <update id="updateByPrimaryKey" parameterType="com.winnie.student.model.ClassInfo" >
     update tb_class
     set name = #{name,jdbcType=VARCHAR},
       monitor_id = #{monitorId,jdbcType=VARCHAR},

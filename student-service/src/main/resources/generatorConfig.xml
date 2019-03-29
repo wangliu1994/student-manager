@@ -26,7 +26,7 @@
         </javaTypeResolver>
 
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.winnie.studentservice.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.winnie.student.model" targetProject="src/main/java">
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对model添加 构造函数 -->
@@ -46,7 +46,7 @@
                  type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
                  type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                  type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.winnie.studentservice.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.winnie.student.dao" targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

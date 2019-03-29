@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.winnie.studentservice.dao.TeacherInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.winnie.studentservice.model.TeacherInfo" >
+<mapper namespace="com.winnie.student.dao.TeacherInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.winnie.student.model.TeacherInfo" >
     <constructor >
       <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="gender" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, gender, name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.winnie.studentservice.model.TeacherInfoExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.winnie.student.model.TeacherInfoExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,19 +93,19 @@
     delete from tb_teacher
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.winnie.studentservice.model.TeacherInfoExample" >
+  <delete id="deleteByExample" parameterType="com.winnie.student.model.TeacherInfoExample" >
     delete from tb_teacher
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.winnie.studentservice.model.TeacherInfo" >
+  <insert id="insert" parameterType="com.winnie.student.model.TeacherInfo" >
     insert into tb_teacher (id, gender, name
       )
     values (#{id,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.winnie.studentservice.model.TeacherInfo" >
+  <insert id="insertSelective" parameterType="com.winnie.student.model.TeacherInfo" >
     insert into tb_teacher
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -130,7 +130,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.winnie.studentservice.model.TeacherInfoExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.winnie.student.model.TeacherInfoExample" resultType="java.lang.Integer" >
     select count(*) from tb_teacher
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -162,7 +162,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.winnie.studentservice.model.TeacherInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.winnie.student.model.TeacherInfo" >
     update tb_teacher
     <set >
       <if test="gender != null" >
@@ -174,7 +174,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.winnie.studentservice.model.TeacherInfo" >
+  <update id="updateByPrimaryKey" parameterType="com.winnie.student.model.TeacherInfo" >
     update tb_teacher
     set gender = #{gender,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR}
