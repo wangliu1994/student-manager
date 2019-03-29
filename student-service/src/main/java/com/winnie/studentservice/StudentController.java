@@ -2,11 +2,14 @@ package com.winnie.studentservice;
 
 import com.ctrip.framework.apollo.Config;
 import com.ctrip.framework.apollo.ConfigService;
+import com.winnie.studentservice.dao.StudentInfoMapper;
+import com.winnie.studentservice.model.StudentInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author : winnie
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/student")
 @Api(tags = "学生信息管理")
 public class StudentController {
+
+    @Resource
+    private StudentInfoMapper studentInfoMapper;
 
     @GetMapping("/hello")
     @ApiOperation(value = "问候接口", notes = "问候")
@@ -29,9 +35,20 @@ public class StudentController {
         return "Hello, I am a Student, your value is: " + value;
     }
 
-    @GetMapping("/helloName")
-    @ApiOperation(value = "传入姓名问候接口", notes = "问候")
-    public String hello(String name) {
-        return "Hello, " + name;
+    @GetMapping("/getAll")
+    @ApiOperation(value = "获取学生列表")
+    public List<StudentInfo> getAll() {
+        return studentInfoMapper.selectByExample(null);
+    }
+
+    @PostMapping("/addStudent")
+    @ApiOperation(value = "新增学生信息")
+    public String addStudent(@RequestBody StudentInfo student){
+        int result =  studentInfoMapper.insert(student);
+        if(result > 0){
+            return "添加成功";
+        }else {
+            return "添加失败";
+        }
     }
 }

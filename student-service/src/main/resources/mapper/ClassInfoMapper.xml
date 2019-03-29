@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winnie.studentservice.dao.ClassInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.winnie.studentservice.model.ClassInfo" >
+    <constructor >
+      <idArg column="class_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="monitor_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="excellent" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="english_teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="math_teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="chinese_teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_id, name, monitor_id, excellent, english_teacher_id, math_teacher_id, chinese_teacher_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.winnie.studentservice.model.ClassInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_class
+    where class_id = #{classId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_class
+    where class_id = #{classId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.winnie.studentservice.model.ClassInfoExample" >
+    delete from tb_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.winnie.studentservice.model.ClassInfo" >
+    insert into tb_class (class_id, name, monitor_id, 
+      excellent, english_teacher_id, math_teacher_id, 
+      chinese_teacher_id)
+    values (#{classId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{monitorId,jdbcType=VARCHAR}, 
+      #{excellent,jdbcType=INTEGER}, #{englishTeacherId,jdbcType=VARCHAR}, #{mathTeacherId,jdbcType=VARCHAR}, 
+      #{chineseTeacherId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.winnie.studentservice.model.ClassInfo" >
+    insert into tb_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="monitorId != null" >
+        monitor_id,
+      </if>
+      <if test="excellent != null" >
+        excellent,
+      </if>
+      <if test="englishTeacherId != null" >
+        english_teacher_id,
+      </if>
+      <if test="mathTeacherId != null" >
+        math_teacher_id,
+      </if>
+      <if test="chineseTeacherId != null" >
+        chinese_teacher_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorId != null" >
+        #{monitorId,jdbcType=VARCHAR},
+      </if>
+      <if test="excellent != null" >
+        #{excellent,jdbcType=INTEGER},
+      </if>
+      <if test="englishTeacherId != null" >
+        #{englishTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="mathTeacherId != null" >
+        #{mathTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="chineseTeacherId != null" >
+        #{chineseTeacherId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.winnie.studentservice.model.ClassInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_class
+    <set >
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorId != null" >
+        monitor_id = #{record.monitorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.excellent != null" >
+        excellent = #{record.excellent,jdbcType=INTEGER},
+      </if>
+      <if test="record.englishTeacherId != null" >
+        english_teacher_id = #{record.englishTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mathTeacherId != null" >
+        math_teacher_id = #{record.mathTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chineseTeacherId != null" >
+        chinese_teacher_id = #{record.chineseTeacherId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_class
+    set class_id = #{record.classId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      monitor_id = #{record.monitorId,jdbcType=VARCHAR},
+      excellent = #{record.excellent,jdbcType=INTEGER},
+      english_teacher_id = #{record.englishTeacherId,jdbcType=VARCHAR},
+      math_teacher_id = #{record.mathTeacherId,jdbcType=VARCHAR},
+      chinese_teacher_id = #{record.chineseTeacherId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.winnie.studentservice.model.ClassInfo" >
+    update tb_class
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorId != null" >
+        monitor_id = #{monitorId,jdbcType=VARCHAR},
+      </if>
+      <if test="excellent != null" >
+        excellent = #{excellent,jdbcType=INTEGER},
+      </if>
+      <if test="englishTeacherId != null" >
+        english_teacher_id = #{englishTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="mathTeacherId != null" >
+        math_teacher_id = #{mathTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="chineseTeacherId != null" >
+        chinese_teacher_id = #{chineseTeacherId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.winnie.studentservice.model.ClassInfo" >
+    update tb_class
+    set name = #{name,jdbcType=VARCHAR},
+      monitor_id = #{monitorId,jdbcType=VARCHAR},
+      excellent = #{excellent,jdbcType=INTEGER},
+      english_teacher_id = #{englishTeacherId,jdbcType=VARCHAR},
+      math_teacher_id = #{mathTeacherId,jdbcType=VARCHAR},
+      chinese_teacher_id = #{chineseTeacherId,jdbcType=VARCHAR}
+    where class_id = #{classId,jdbcType=VARCHAR}
+  </update>
+</mapper>

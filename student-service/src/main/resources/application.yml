@@ -6,6 +6,15 @@ spring:
     name: student-service
   profiles:
    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_student?serverTimezone=UTC
+    username: root
+    password: root
+
+#自己实现xml mapper才需要配置此项
+mybatis:
+ mapperLocations: classpath:mapper/*.xml
 
 eureka:
  client:
