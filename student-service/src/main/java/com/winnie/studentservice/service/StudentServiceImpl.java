@@ -5,6 +5,7 @@ import com.winnie.studentservice.dto.StudentDto;
 import com.winnie.studentservice.model.StudentInfo;
 import com.winnie.studentservice.utils.StudentUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * @desc
  */
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
     @Resource
     private StudentInfoMapper studentInfoMapper;
