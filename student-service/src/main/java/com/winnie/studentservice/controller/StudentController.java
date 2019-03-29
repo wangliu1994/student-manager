@@ -1,9 +1,9 @@
-package com.winnie.studentservice;
+package com.winnie.studentservice.controller;
 
 import com.ctrip.framework.apollo.Config;
 import com.ctrip.framework.apollo.ConfigService;
-import com.winnie.studentservice.dao.StudentInfoMapper;
-import com.winnie.studentservice.model.StudentInfo;
+import com.winnie.studentservice.dto.StudentDto;
+import com.winnie.studentservice.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.List;
 public class StudentController {
 
     @Resource
-    private StudentInfoMapper studentInfoMapper;
+    private StudentService studentServices;
 
     @GetMapping("/hello")
     @ApiOperation(value = "问候接口", notes = "问候")
@@ -37,18 +37,13 @@ public class StudentController {
 
     @GetMapping("/getAll")
     @ApiOperation(value = "获取学生列表")
-    public List<StudentInfo> getAll() {
-        return studentInfoMapper.selectByExample(null);
+    public List<StudentDto> getAll() {
+        return studentServices.getAll();
     }
 
     @PostMapping("/addStudent")
     @ApiOperation(value = "新增学生信息")
-    public String addStudent(@RequestBody StudentInfo student){
-        int result =  studentInfoMapper.insert(student);
-        if(result > 0){
-            return "添加成功";
-        }else {
-            return "添加失败";
-        }
+    public String addStudent(@RequestBody StudentDto student){
+        return studentServices.add(student);
     }
 }
