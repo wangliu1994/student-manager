@@ -3,6 +3,7 @@ package com.winnie.teacher.model;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "tb_class")
 @Data
 public class ClassInfo {
+    @Id
     @Column(name = "class_id")
     private String classId;
 

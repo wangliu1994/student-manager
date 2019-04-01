@@ -11,6 +11,7 @@ import com.winnie.teacher.dao.StudentMapper;
 import com.winnie.teacher.dao.TeacherMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,8 +42,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int edit(StudentReqDto studentDto) {
         StudentInfo studentInfo = StudentUtils.convertStudentReqDto(studentDto);
-        //TODO
-        return studentInfoMapper.updateByExample(studentInfo, null);
+        Example example = new Example(ClassInfo.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", studentDto.getId());
+        return studentInfoMapper.updateByExample(studentInfo, example);
     }
 
     @Override
@@ -52,35 +55,34 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentResDto getByPk(String id) {
-        StudentInfo studentInfo = studentInfoMapper.selectByPrimaryKey(id);
-        StudentResDto studentResDto = StudentUtils.convertStudentInfo(studentInfo);
-        if (studentInfo == null) {
-            return null;
-        }
-        ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(studentResDto.getClassId());
-        if (classInfo == null) {
-            return studentResDto;
-        }
-        studentResDto.setClassName(classInfo.getName());
-        studentResDto.setMonitorId(classInfo.getMonitorId());
-        studentResDto.setChineseTeacherId(classInfo.getChineseTeacherId());
-        studentResDto.setMathTeacherId(classInfo.getMathTeacherId());
-        studentResDto.setEnglishTeacherId(classInfo.getEnglishTeacherId());
-        TeacherInfo monitorInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getMonitorId());
-        if (monitorInfo != null) {
-            studentResDto.setMonitorName(monitorInfo.getName());
-        }
-        TeacherInfo chineseInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getChineseTeacherId());
-        if (chineseInfo != null) {
-            studentResDto.setChineseTeacherName(chineseInfo.getName());
-        }
-        TeacherInfo mathInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getMathTeacherId());
-        if (mathInfo != null) {
-            studentResDto.setMathTeacherName(mathInfo.getName());
-        }
-        TeacherInfo englishInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getEnglishTeacherId());
-        if (englishInfo != null) {
-            studentResDto.setEnglishTeacherName(englishInfo.getName());
+        StudentInfo student = studentInfoMapper.selectByPrimaryKey(id);
+        StudentResDto studentResDto = StudentUtils.convertStudentInfo(student);
+        if (student != null) {
+            ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(studentResDto.getClassId());
+            if (classInfo == null) {
+                return studentResDto;
+            }
+            studentResDto.setClassName(classInfo.getName());
+            studentResDto.setMonitorId(classInfo.getMonitorId());
+            studentResDto.setChineseTeacherId(classInfo.getChineseTeacherId());
+            studentResDto.setMathTeacherId(classInfo.getMathTeacherId());
+            studentResDto.setEnglishTeacherId(classInfo.getEnglishTeacherId());
+            TeacherInfo monitorInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getMonitorId());
+            if (monitorInfo != null) {
+                studentResDto.setMonitorName(monitorInfo.getName());
+            }
+            TeacherInfo chineseInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getChineseTeacherId());
+            if (chineseInfo != null) {
+                studentResDto.setChineseTeacherName(chineseInfo.getName());
+            }
+            TeacherInfo mathInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getMathTeacherId());
+            if (mathInfo != null) {
+                studentResDto.setMathTeacherName(mathInfo.getName());
+            }
+            TeacherInfo englishInfo = teacherInfoMapper.selectByPrimaryKey(studentResDto.getEnglishTeacherId());
+            if (englishInfo != null) {
+                studentResDto.setEnglishTeacherName(englishInfo.getName());
+            }
         }
         return studentResDto;
     }

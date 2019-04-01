@@ -5,6 +5,7 @@ import com.winnie.teacher.dto.response.ClassResDto;
 import com.winnie.teacher.model.ClassInfo;
 import com.winnie.teacher.utils.ClassUtils;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,8 +29,10 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public int edit(ClassResDto classInResDto) {
         ClassInfo classInfo = ClassUtils.convertClassDto(classInResDto);
-       //TODO
-        return classInfoMapper.updateByExample(classInfo, null);
+        Example example = new Example(ClassInfo.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("classId", classInResDto.getClassId());
+        return classInfoMapper.updateByExample(classInfo, example);
     }
 
     @Override

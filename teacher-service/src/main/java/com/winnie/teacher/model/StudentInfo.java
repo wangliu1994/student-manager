@@ -3,6 +3,7 @@ package com.winnie.teacher.model;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @Table(name = "tb_student")
 @Data
 public class StudentInfo {
+    @Id
     private String id;
 
     private String name;

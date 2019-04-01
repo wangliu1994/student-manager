@@ -2,10 +2,12 @@ package com.winnie.teacher.service;
 
 import com.winnie.teacher.dao.TeacherMapper;
 import com.winnie.teacher.dto.response.TeacherResDto;
+import com.winnie.teacher.model.ClassInfo;
 import com.winnie.teacher.model.TeacherInfo;
 import com.winnie.teacher.utils.TeacherUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,8 +32,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public int edit(TeacherResDto teacherResDto) {
         TeacherInfo teacherInfo = TeacherUtils.convertTeacherDto(teacherResDto);
-        //TODO
-        return teacherInfoMapper.updateByExample(teacherInfo, null);
+        Example example = new Example(TeacherInfo.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", teacherInfo.getId());
+        return teacherInfoMapper.updateByExample(teacherInfo, example);
     }
 
     @Override
