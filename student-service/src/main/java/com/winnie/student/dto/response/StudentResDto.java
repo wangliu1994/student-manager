@@ -1,4 +1,4 @@
-package com.winnie.student.dto;
+package com.winnie.student.dto.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,9 +6,9 @@ import lombok.Data;
 
 import java.util.Date;
 
-@ApiModel(value = "StudentDto", description = "学生返回参数")
+@ApiModel(value = "StudentResDto", description = "学生返回参数")
 @Data
-public class StudentDto {
+public class StudentResDto {
     @ApiModelProperty(value = "学生编号")
     private String id;
 

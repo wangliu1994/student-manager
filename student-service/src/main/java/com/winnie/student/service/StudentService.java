@@ -1,6 +1,6 @@
 package com.winnie.student.service;
 
-import com.winnie.student.dto.StudentDto;
+import com.winnie.student.dto.response.StudentResDto;
 
 import java.util.List;
 
@@ -11,7 +11,11 @@ import java.util.List;
  */
 public interface StudentService {
 
-    String add(StudentDto studentDto);
+    int add(StudentResDto studentDto);
 
-    List<StudentDto> getAll();
+    int edit(StudentResDto studentDto);
+
+    int del(String id);
+
+    List<StudentResDto> getAll();
 }

@@ -1,7 +1,7 @@
 package com.winnie.student.model;
 
 /**
- * 学生管理使用的是mybatis，教师管理使用的tk-mybatis
+ * student-service使用的是mybatis，teacher-service使用的tk-mybatis
  */
 public class TeacherInfo {
     private String id;

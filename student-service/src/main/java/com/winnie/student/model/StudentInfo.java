@@ -2,6 +2,9 @@ package com.winnie.student.model;
 
 import java.util.Date;
 
+/**
+ * student-service使用的是mybatis，teacher-service使用的tk-mybatis
+ */
 public class StudentInfo {
     private String id;
 

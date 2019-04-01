@@ -1,7 +1,7 @@
 package com.winnie.student.service;
 
 import com.winnie.student.dao.StudentInfoMapper;
-import com.winnie.student.dto.StudentDto;
+import com.winnie.student.dto.response.StudentResDto;
 import com.winnie.student.model.StudentInfo;
 import com.winnie.student.utils.StudentUtils;
 import org.springframework.stereotype.Service;
@@ -22,18 +22,23 @@ public class StudentServiceImpl implements StudentService {
     private StudentInfoMapper studentInfoMapper;
 
     @Override
-    public String add(StudentDto studentDto) {
+    public int add(StudentResDto studentDto) {
         StudentInfo studentInfo = StudentUtils.convertStudentDto(studentDto);
-        int result =  studentInfoMapper.insert(studentInfo);
-        if(result > 0){
-            return "添加成功";
-        }else {
-            return "添加失败";
-        }
+        return studentInfoMapper.insert(studentInfo);
     }
 
     @Override
-    public List<StudentDto> getAll() {
+    public int edit(StudentResDto studentDto) {
+        return 0;
+    }
+
+    @Override
+    public int del(String id) {
+        return 0;
+    }
+
+    @Override
+    public List<StudentResDto> getAll() {
         List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(null);
         return StudentUtils.converStudentInfos(studentInfos);
     }

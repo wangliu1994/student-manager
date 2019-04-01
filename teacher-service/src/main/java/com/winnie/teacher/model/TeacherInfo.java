@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 学生管理使用的是mybatis，教师管理使用的tk-mybatis
+ * student-service使用的是mybatis，teacher-service使用的tk-mybatis
  */
 @Data
 // @Table指定该实体类对应的表名,如表名为teacher_info,类名为TeacherInfo可以不需要此注解
