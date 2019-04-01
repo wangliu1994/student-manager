@@ -3,6 +3,7 @@ package com.winnie.student.service;
 import com.winnie.student.dao.StudentInfoMapper;
 import com.winnie.student.dto.response.StudentResDto;
 import com.winnie.student.model.StudentInfo;
+import com.winnie.student.model.StudentInfoExample;
 import com.winnie.student.utils.StudentUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +30,31 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int edit(StudentResDto studentDto) {
-        return 0;
+        StudentInfo studentInfo = StudentUtils.convertStudentDto(studentDto);
+        StudentInfoExample example = new StudentInfoExample();
+        StudentInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(studentInfo.getId());
+        return studentInfoMapper.updateByExample(studentInfo, example);
     }
 
     @Override
     public int del(String id) {
-        return 0;
+        return studentInfoMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public StudentResDto getByPk(String id) {
+        StudentInfo studentInfo = studentInfoMapper.selectByPrimaryKey(id);
+        return StudentUtils.converStudentInfo(studentInfo);
+    }
+
+    @Override
+    public List<StudentResDto> query(List<String> ids) {
+        StudentInfoExample example = new StudentInfoExample();
+        StudentInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIn(ids);
+        List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(example);
+        return StudentUtils.converStudentInfos(studentInfos);
     }
 
     @Override

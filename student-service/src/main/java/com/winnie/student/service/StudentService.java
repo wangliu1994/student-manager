@@ -17,5 +17,9 @@ public interface StudentService {
 
     int del(String id);
 
+    StudentResDto getByPk(String id);
+
+    List<StudentResDto> query(List<String> ids);
+
     List<StudentResDto> getAll();
 }

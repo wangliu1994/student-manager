@@ -32,13 +32,49 @@ public class StudentController {
         return ResultUtils.genSuccessResult(studentResDtos);
     }
 
-    @PostMapping("/addStudent")
+    @GetMapping("/get")
+    @ApiOperation(value = "获取学生详情")
+    public BaseResult<StudentResDto> get(@RequestParam("id") String id) {
+        StudentResDto studentResDto = studentServices.getByPk(id);
+        return ResultUtils.genSuccessResult(studentResDto);
+    }
+
+    @PostMapping("/query")
+    @ApiOperation(value = "条件查询学生详情")
+    public BaseResult< List<StudentResDto>> query(@RequestBody List<String> ids) {
+        List<StudentResDto> studentResDtos  = studentServices.query(ids);
+        return ResultUtils.genSuccessResult(studentResDtos);
+    }
+
+    @PostMapping("/add")
     @ApiOperation(value = "新增学生信息")
-    public BaseResult addStudent(@RequestBody StudentResDto student){
+    public BaseResult add(@RequestBody StudentResDto student) {
         int addResult = studentServices.add(student);
-        if(addResult >0){
+        if (addResult > 0) {
             return ResultUtils.genSuccessResult();
-        }else {
+        } else {
+            return ResultUtils.genResult(BaseResultCode.BASE_FIALED);
+        }
+    }
+
+    @PutMapping("/edit")
+    @ApiOperation(value = "编辑学生信息")
+    public BaseResult edit(@RequestBody StudentResDto student) {
+        int addResult = studentServices.edit(student);
+        if (addResult > 0) {
+            return ResultUtils.genSuccessResult();
+        } else {
+            return ResultUtils.genResult(BaseResultCode.BASE_FIALED);
+        }
+    }
+
+    @DeleteMapping("/del")
+    @ApiOperation(value = "删除学生信息")
+    public BaseResult del(@RequestParam("id") String id) {
+        int addResult = studentServices.del(id);
+        if (addResult > 0) {
+            return ResultUtils.genSuccessResult();
+        } else {
             return ResultUtils.genResult(BaseResultCode.BASE_FIALED);
         }
     }
