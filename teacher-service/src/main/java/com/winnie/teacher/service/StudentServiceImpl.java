@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int edit(StudentReqDto studentDto) {
         StudentInfo studentInfo = StudentUtils.convertStudentReqDto(studentDto);
-        Example example = new Example(ClassInfo.class);
+        Example example = new Example(StudentInfo.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id", studentDto.getId());
         return studentInfoMapper.updateByExample(studentInfo, example);
@@ -89,8 +89,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentResDto> query(List<String> ids) {
-        //TODO
-        List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(null);
+        Example example = new Example(StudentInfo.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andIn("id", ids);
+        List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(example);
         return StudentUtils.convertStudentInfos(studentInfos);
     }
 

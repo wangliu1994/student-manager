@@ -2,7 +2,6 @@ package com.winnie.teacher.service;
 
 import com.winnie.teacher.dao.TeacherMapper;
 import com.winnie.teacher.dto.response.TeacherResDto;
-import com.winnie.teacher.model.ClassInfo;
 import com.winnie.teacher.model.TeacherInfo;
 import com.winnie.teacher.utils.TeacherUtils;
 import org.springframework.stereotype.Service;
