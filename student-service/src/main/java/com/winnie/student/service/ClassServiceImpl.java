@@ -1,8 +1,13 @@
 package com.winnie.student.service;
 
-import com.winnie.student.dto.response.ClassInResDto;
+import com.winnie.student.dao.ClassInfoMapper;
+import com.winnie.student.dto.response.ClassResDto;
+import com.winnie.student.model.ClassInfo;
+import com.winnie.student.model.ClassInfoExample;
+import com.winnie.student.utils.ClassUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -12,28 +17,38 @@ import java.util.List;
  */
 @Service
 public class ClassServiceImpl implements ClassService {
+    @Resource
+    private ClassInfoMapper classInfoMapper;
+
     @Override
-    public int add(ClassInResDto classInResDto) {
-        return 0;
+    public int add(ClassResDto classInResDto) {
+        ClassInfo classInfo = ClassUtils.convertClassDto(classInResDto);
+        return classInfoMapper.insert(classInfo);
     }
 
     @Override
-    public int edit(ClassInResDto classInResDto) {
-        return 0;
+    public int edit(ClassResDto classInResDto) {
+        ClassInfo classInfo = ClassUtils.convertClassDto(classInResDto);
+        ClassInfoExample example = new ClassInfoExample();
+        ClassInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andClassIdEqualTo(classInfo.getClassId());
+        return classInfoMapper.updateByExample(classInfo, example);
     }
 
     @Override
     public int del(String id) {
-        return 0;
+        return classInfoMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public ClassInResDto getByPk(String id) {
-        return null;
+    public ClassResDto getByPk(String id) {
+        ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(id);
+        return ClassUtils.convertClassInfo(classInfo);
     }
 
     @Override
-    public List<ClassInResDto> getAll() {
-        return null;
+    public List<ClassResDto> getAll() {
+        List<ClassInfo> classInfos = classInfoMapper.selectByExample(null);
+        return ClassUtils.convertClassInfos(classInfos);
     }
 }

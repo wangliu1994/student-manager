@@ -1,6 +1,8 @@
 package com.winnie.student.service;
 
+import com.winnie.student.dao.ClassInfoMapper;
 import com.winnie.student.dao.StudentInfoMapper;
+import com.winnie.student.dao.TeacherInfoMapper;
 import com.winnie.student.dto.response.StudentResDto;
 import com.winnie.student.model.StudentInfo;
 import com.winnie.student.model.StudentInfoExample;
@@ -21,6 +23,12 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Resource
     private StudentInfoMapper studentInfoMapper;
+
+    @Resource
+    private TeacherInfoMapper teacherInfoMapper;
+
+    @Resource
+    private ClassInfoMapper classInfoMapper;
 
     @Override
     public int add(StudentResDto studentDto) {
@@ -45,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResDto getByPk(String id) {
         StudentInfo studentInfo = studentInfoMapper.selectByPrimaryKey(id);
-        return StudentUtils.converStudentInfo(studentInfo);
+        return StudentUtils.convertStudentInfo(studentInfo);
     }
 
     @Override
@@ -54,12 +62,12 @@ public class StudentServiceImpl implements StudentService {
         StudentInfoExample.Criteria criteria = example.createCriteria();
         criteria.andIdIn(ids);
         List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(example);
-        return StudentUtils.converStudentInfos(studentInfos);
+        return StudentUtils.convertStudentInfos(studentInfos);
     }
 
     @Override
     public List<StudentResDto> getAll() {
         List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(null);
-        return StudentUtils.converStudentInfos(studentInfos);
+        return StudentUtils.convertStudentInfos(studentInfos);
     }
 }

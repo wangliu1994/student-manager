@@ -21,35 +21,34 @@ import java.util.List;
 @RequestMapping("/student")
 @Api(tags = "学生信息管理")
 public class StudentController {
-
     @Resource
-    private StudentService studentServices;
+    private StudentService studentService;
 
     @GetMapping("/getAll")
     @ApiOperation(value = "获取学生列表")
     public BaseResult<List<StudentResDto>> getAll() {
-        List<StudentResDto> studentResDtos = studentServices.getAll();
+        List<StudentResDto> studentResDtos = studentService.getAll();
         return ResultUtils.genSuccessResult(studentResDtos);
     }
 
     @GetMapping("/get")
     @ApiOperation(value = "获取学生详情")
     public BaseResult<StudentResDto> get(@RequestParam("id") String id) {
-        StudentResDto studentResDto = studentServices.getByPk(id);
+        StudentResDto studentResDto = studentService.getByPk(id);
         return ResultUtils.genSuccessResult(studentResDto);
     }
 
     @PostMapping("/query")
-    @ApiOperation(value = "条件查询学生详情")
+    @ApiOperation(value = "条件查询学生")
     public BaseResult< List<StudentResDto>> query(@RequestBody List<String> ids) {
-        List<StudentResDto> studentResDtos  = studentServices.query(ids);
+        List<StudentResDto> studentResDtos  = studentService.query(ids);
         return ResultUtils.genSuccessResult(studentResDtos);
     }
 
     @PostMapping("/add")
     @ApiOperation(value = "新增学生信息")
     public BaseResult add(@RequestBody StudentResDto student) {
-        int addResult = studentServices.add(student);
+        int addResult = studentService.add(student);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
         } else {
@@ -60,7 +59,7 @@ public class StudentController {
     @PutMapping("/edit")
     @ApiOperation(value = "编辑学生信息")
     public BaseResult edit(@RequestBody StudentResDto student) {
-        int addResult = studentServices.edit(student);
+        int addResult = studentService.edit(student);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
         } else {
@@ -71,7 +70,7 @@ public class StudentController {
     @DeleteMapping("/del")
     @ApiOperation(value = "删除学生信息")
     public BaseResult del(@RequestParam("id") String id) {
-        int addResult = studentServices.del(id);
+        int addResult = studentService.del(id);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
         } else {

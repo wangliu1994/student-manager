@@ -20,21 +20,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig{
 
+    //要使gateway配置的swagger转发，本配置里面需要有一个default的groupName
     @Bean
     public Docket studentApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("hhh")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.winnie.student"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    //要使gateway配置的swagger转发，本配置里面需要有一个default的groupName
     @Bean
     public Docket classApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("hhh")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(""))

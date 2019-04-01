@@ -5,8 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "ClassInResDto", description = "班级范湖参数")
-public class ClassInResDto {
+@ApiModel(value = "ClassResDto", description = "班级范湖参数")
+public class ClassResDto {
     @ApiModelProperty(value = "班级编号")
     private String classId;
 

@@ -1,6 +1,6 @@
 package com.winnie.student.service;
 
-import com.winnie.student.dto.response.ClassInResDto;
+import com.winnie.student.dto.response.ClassResDto;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import java.util.List;
  * @desc
  */
 public interface ClassService {
-    int add(ClassInResDto classInResDto);
+    int add(ClassResDto classInResDto);
 
-    int edit(ClassInResDto classInResDto);
+    int edit(ClassResDto classInResDto);
 
     int del(String id);
 
-    ClassInResDto getByPk(String id);
+    ClassResDto getByPk(String id);
 
-    List<ClassInResDto> getAll();
+    List<ClassResDto> getAll();
 }

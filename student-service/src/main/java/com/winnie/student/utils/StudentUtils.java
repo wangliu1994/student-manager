@@ -13,24 +13,23 @@ import java.util.stream.Collectors;
  * @desc
  */
 public class StudentUtils {
-
     public static StudentInfo convertStudentDto(StudentResDto studentDto){
         StudentInfo studentInfo = new StudentInfo();
         BeanUtils.copyProperties(studentDto, studentInfo);
         return studentInfo;
     }
 
-    public static StudentResDto converStudentInfo(StudentInfo studentInfo){
+    public static StudentResDto convertStudentInfo(StudentInfo studentInfo){
         StudentResDto studentDto = new StudentResDto();
         BeanUtils.copyProperties(studentInfo, studentDto);
         return studentDto;
     }
 
-    public static List<StudentInfo> converStudentDtos(List<StudentResDto> studentDtos){
+    public static List<StudentInfo> convertStudentDtos(List<StudentResDto> studentDtos){
         return studentDtos.stream().map(StudentUtils::convertStudentDto).collect(Collectors.toList());
     }
 
-    public static List<StudentResDto> converStudentInfos(List<StudentInfo> studentInfos){
-        return studentInfos.stream().map(StudentUtils::converStudentInfo).collect(Collectors.toList());
+    public static List<StudentResDto> convertStudentInfos(List<StudentInfo> studentInfos){
+        return studentInfos.stream().map(StudentUtils::convertStudentInfo).collect(Collectors.toList());
     }
 }
