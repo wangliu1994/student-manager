@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @desc
  */
 @RestController
-@Api(tags = "问候")
+@Api(tags = "问候管理")
 public class HelloController {
     @GetMapping("/hello")
     @ApiOperation(value = "问候接口", notes = "问候")

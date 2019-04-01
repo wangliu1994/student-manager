@@ -3,8 +3,8 @@ package com.winnie.teacher.controller;
 import com.winnie.common.dto.BaseResult;
 import com.winnie.common.dto.BaseResultCode;
 import com.winnie.common.utils.ResultUtils;
-import com.winnie.teacher.dto.response.TeacherResDto;
-import com.winnie.teacher.service.TeacherService;
+import com.winnie.teacher.dto.response.ClassResDto;
+import com.winnie.teacher.service.ClassService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -18,30 +18,30 @@ import java.util.List;
  * @desc
  */
 @RestController
-@RequestMapping("/teacher")
-@Api(tags = "教师信息管理")
-public class TeacherController {
+@RequestMapping("/class")
+@Api(tags = "班级信息管理")
+public class ClassController {
     @Resource
-    private TeacherService teacherService;
+    private ClassService classService;
 
     @GetMapping("/getAll")
-    @ApiOperation(value = "获取教师列表")
-    public BaseResult<List<TeacherResDto>> getAll() {
-        List<TeacherResDto> teacherResDtos = teacherService.getAll();
-        return ResultUtils.genSuccessResult(teacherResDtos);
+    @ApiOperation(value = "获取班级列表")
+    public BaseResult<List<ClassResDto>> getAll() {
+        List<ClassResDto> classResDtos = classService.getAll();
+        return ResultUtils.genSuccessResult(classResDtos);
     }
 
     @GetMapping("/get")
-    @ApiOperation(value = "获取教师详情")
-    public BaseResult<TeacherResDto> get(@RequestParam("id") String id) {
-        TeacherResDto teacherResDto = teacherService.getByPk(id);
-        return ResultUtils.genSuccessResult(teacherResDto);
+    @ApiOperation(value = "获取班级详情")
+    public BaseResult<ClassResDto> get(@RequestParam("id") String id) {
+        ClassResDto classResDto = classService.getByPk(id);
+        return ResultUtils.genSuccessResult(classResDto);
     }
 
     @PostMapping("/add")
-    @ApiOperation(value = "新增教师信息")
-    public BaseResult add(@RequestBody TeacherResDto teacher) {
-        int addResult = teacherService.add(teacher);
+    @ApiOperation(value = "新增班级信息")
+    public BaseResult add(@RequestBody ClassResDto classInfo) {
+        int addResult = classService.add(classInfo);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
         } else {
@@ -50,9 +50,9 @@ public class TeacherController {
     }
 
     @PutMapping("/edit")
-    @ApiOperation(value = "编辑教师信息")
-    public BaseResult edit(@RequestBody TeacherResDto teacher) {
-        int addResult = teacherService.edit(teacher);
+    @ApiOperation(value = "编辑班级信息")
+    public BaseResult edit(@RequestBody ClassResDto classInfo) {
+        int addResult = classService.edit(classInfo);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
         } else {
@@ -61,9 +61,9 @@ public class TeacherController {
     }
 
     @DeleteMapping("/del")
-    @ApiOperation(value = "删除教师信息")
+    @ApiOperation(value = "删除班级信息")
     public BaseResult del(@RequestParam("id") String id) {
-        int addResult = teacherService.del(id);
+        int addResult = classService.del(id);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
         } else {

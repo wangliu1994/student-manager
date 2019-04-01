@@ -1,17 +1,23 @@
 package com.winnie.teacher.service;
 
-import com.winnie.teacher.model.TeacherInfo;
+
+import com.winnie.teacher.dto.response.TeacherResDto;
 
 import java.util.List;
 
 /**
  * @author : winnie
- * @date : 2019/3/29
+ * @date : 2019/4/1
  * @desc
  */
 public interface TeacherService {
+    int add(TeacherResDto teacherResDto);
 
-    String add(TeacherInfo studentDto);
+    int edit(TeacherResDto teacherResDto);
 
-    List<TeacherInfo> getAll();
+    int del(String id);
+
+    TeacherResDto getByPk(String id);
+
+    List<TeacherResDto> getAll();
 }
