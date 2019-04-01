@@ -1,5 +1,6 @@
 package com.winnie.student.utils;
 
+import com.winnie.student.dto.request.StudentReqDto;
 import com.winnie.student.dto.response.StudentResDto;
 import com.winnie.student.model.StudentInfo;
 import org.springframework.beans.BeanUtils;
@@ -13,7 +14,13 @@ import java.util.stream.Collectors;
  * @desc
  */
 public class StudentUtils {
-    public static StudentInfo convertStudentDto(StudentResDto studentDto){
+    public static StudentInfo convertStudentResDto(StudentResDto studentDto){
+        StudentInfo studentInfo = new StudentInfo();
+        BeanUtils.copyProperties(studentDto, studentInfo);
+        return studentInfo;
+    }
+
+    public static StudentInfo convertStudentReqDto(StudentReqDto studentDto){
         StudentInfo studentInfo = new StudentInfo();
         BeanUtils.copyProperties(studentDto, studentInfo);
         return studentInfo;
@@ -26,7 +33,7 @@ public class StudentUtils {
     }
 
     public static List<StudentInfo> convertStudentDtos(List<StudentResDto> studentDtos){
-        return studentDtos.stream().map(StudentUtils::convertStudentDto).collect(Collectors.toList());
+        return studentDtos.stream().map(StudentUtils::convertStudentResDto).collect(Collectors.toList());
     }
 
     public static List<StudentResDto> convertStudentInfos(List<StudentInfo> studentInfos){

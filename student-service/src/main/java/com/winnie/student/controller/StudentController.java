@@ -3,6 +3,7 @@ package com.winnie.student.controller;
 import com.winnie.common.dto.BaseResult;
 import com.winnie.common.dto.BaseResultCode;
 import com.winnie.common.utils.ResultUtils;
+import com.winnie.student.dto.request.StudentReqDto;
 import com.winnie.student.dto.response.StudentResDto;
 import com.winnie.student.service.StudentService;
 import io.swagger.annotations.Api;
@@ -40,14 +41,14 @@ public class StudentController {
 
     @PostMapping("/query")
     @ApiOperation(value = "条件查询学生")
-    public BaseResult< List<StudentResDto>> query(@RequestBody List<String> ids) {
+    public BaseResult<List<StudentResDto>> query(@RequestBody List<String> ids) {
         List<StudentResDto> studentResDtos  = studentService.query(ids);
         return ResultUtils.genSuccessResult(studentResDtos);
     }
 
     @PostMapping("/add")
     @ApiOperation(value = "新增学生信息")
-    public BaseResult add(@RequestBody StudentResDto student) {
+    public BaseResult add(@RequestBody StudentReqDto student) {
         int addResult = studentService.add(student);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
@@ -58,7 +59,7 @@ public class StudentController {
 
     @PutMapping("/edit")
     @ApiOperation(value = "编辑学生信息")
-    public BaseResult edit(@RequestBody StudentResDto student) {
+    public BaseResult edit(@RequestBody StudentReqDto student) {
         int addResult = studentService.edit(student);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
