@@ -100,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
         criteria.andIn("id", ids);
         Page<StudentInfo> page = PageHelper
                 .startPage(pageNum, pageSize)
-                .setOrderBy("name");
+                .setOrderBy("register_time");
         PageInfo<StudentInfo> pageInfo = page.doSelectPageInfo(() -> studentInfoMapper.selectByExample(example));
         List<StudentInfo> studentInfos = pageInfo.getList();
         List<StudentResDto> studentResDtos = StudentUtils.convertStudentInfos(studentInfos);
@@ -109,7 +109,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public BasePageResult<List<StudentResDto>> getAll(int pageSize, int pageNum) {
-        Page<StudentInfo> page = PageHelper.startPage(pageNum, pageSize);
+        Page<StudentInfo> page = PageHelper.startPage(pageNum, pageSize, "register_time desc");
         List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(null);
         List<StudentResDto> studentResDtos = StudentUtils.convertStudentInfos(studentInfos);
         return PageUtils.genPageResult(studentResDtos, page);
