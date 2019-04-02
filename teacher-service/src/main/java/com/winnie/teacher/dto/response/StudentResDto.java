@@ -4,11 +4,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(value = "StudentResDto", description = "学生返回参数")
 @Data
-public class StudentResDto {
+public class StudentResDto implements Serializable {
     @ApiModelProperty(value = "学生编号")
     private String id;
 
