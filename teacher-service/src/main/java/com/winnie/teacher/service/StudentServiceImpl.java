@@ -1,10 +1,16 @@
 package com.winnie.teacher.service;
 
+import com.github.pagehelper.ISelect;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.winnie.common.dto.BasePageResult;
 import com.winnie.teacher.dto.request.StudentReqDto;
 import com.winnie.teacher.dto.response.StudentResDto;
 import com.winnie.teacher.model.ClassInfo;
 import com.winnie.teacher.model.StudentInfo;
 import com.winnie.teacher.model.TeacherInfo;
+import com.winnie.teacher.utils.PageUtils;
 import com.winnie.teacher.utils.StudentUtils;
 import com.winnie.teacher.dao.ClassMapper;
 import com.winnie.teacher.dao.StudentMapper;
@@ -88,17 +94,24 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentResDto> query(List<String> ids) {
+    public BasePageResult<List<StudentResDto>> query(List<String> ids, int pageSize, int pageNum) {
         Example example = new Example(StudentInfo.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andIn("id", ids);
-        List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(example);
-        return StudentUtils.convertStudentInfos(studentInfos);
+        Page<StudentInfo> page = PageHelper
+                .startPage(pageNum, pageSize)
+                .setOrderBy("name");
+        PageInfo<StudentInfo> pageInfo = page.doSelectPageInfo(() -> studentInfoMapper.selectByExample(example));
+        List<StudentInfo> studentInfos = pageInfo.getList();
+        List<StudentResDto> studentResDtos = StudentUtils.convertStudentInfos(studentInfos);
+        return PageUtils.genPageResult(studentResDtos, page);
     }
 
     @Override
-    public List<StudentResDto> getAll() {
+    public BasePageResult<List<StudentResDto>> getAll(int pageSize, int pageNum) {
+        Page<StudentInfo> page = PageHelper.startPage(pageNum, pageSize);
         List<StudentInfo> studentInfos = studentInfoMapper.selectByExample(null);
-        return StudentUtils.convertStudentInfos(studentInfos);
+        List<StudentResDto> studentResDtos = StudentUtils.convertStudentInfos(studentInfos);
+        return PageUtils.genPageResult(studentResDtos, page);
     }
 }

@@ -10,9 +10,10 @@ import javax.persistence.Table;
  * @author : winnie
  * @date : 2019/4/1
  * @desc student-service使用的是mybatis，teacher-service使用的tk-mybatis
+ *
+ * -@Table指定该实体类对应的表名,如表名为teacher_info,类名为TeacherInfo可以不需要此注解
  */
 @Data
-// @Table指定该实体类对应的表名,如表名为teacher_info,类名为TeacherInfo可以不需要此注解
 @Table(name = "tb_teacher")
 @ApiModel(value = "教师信息")
 public class TeacherInfo {

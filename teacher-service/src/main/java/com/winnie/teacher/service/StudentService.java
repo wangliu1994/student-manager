@@ -1,8 +1,11 @@
 package com.winnie.teacher.service;
 
 
+import com.github.pagehelper.PageInfo;
+import com.winnie.common.dto.BasePageResult;
 import com.winnie.teacher.dto.request.StudentReqDto;
 import com.winnie.teacher.dto.response.StudentResDto;
+import com.winnie.teacher.model.StudentInfo;
 
 import java.util.List;
 
@@ -21,7 +24,7 @@ public interface StudentService {
 
     StudentResDto getByPk(String id);
 
-    List<StudentResDto> query(List<String> ids);
+    BasePageResult<List<StudentResDto>> query(List<String> ids, int pageSize, int pageNum);
 
-    List<StudentResDto> getAll();
+    BasePageResult<List<StudentResDto>> getAll(int pageSize, int pageNum);
 }

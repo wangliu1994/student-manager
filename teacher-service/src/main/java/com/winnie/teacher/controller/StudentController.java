@@ -1,5 +1,6 @@
 package com.winnie.teacher.controller;
 
+import com.winnie.common.dto.BasePageResult;
 import com.winnie.common.dto.BaseResult;
 import com.winnie.common.dto.BaseResultCode;
 import com.winnie.common.utils.ResultUtils;
@@ -27,8 +28,9 @@ public class StudentController {
 
     @GetMapping("/getAll")
     @ApiOperation(value = "获取学生列表")
-    public BaseResult<List<StudentResDto>> getAll() {
-        List<StudentResDto> studentResDtos = studentService.getAll();
+    public BaseResult<BasePageResult<List<StudentResDto>>> getAll(
+            @RequestParam("pageSize") int pagSize, @RequestParam("pageNum") int pageNum) {
+        BasePageResult<List<StudentResDto>> studentResDtos = studentService.getAll(pagSize, pageNum);
         return ResultUtils.genSuccessResult(studentResDtos);
     }
 
@@ -41,8 +43,9 @@ public class StudentController {
 
     @PostMapping("/query")
     @ApiOperation(value = "条件查询学生")
-    public BaseResult<List<StudentResDto>> query(@RequestBody List<String> ids) {
-        List<StudentResDto> studentResDtos  = studentService.query(ids);
+    public BaseResult<BasePageResult<List<StudentResDto>>> query(
+            @RequestBody List<String> ids, @RequestParam("pageSize") int pagSize, @RequestParam("pageNum") int pageNum) {
+        BasePageResult<List<StudentResDto>> studentResDtos = studentService.query(ids, pagSize, pageNum);
         return ResultUtils.genSuccessResult(studentResDtos);
     }
 

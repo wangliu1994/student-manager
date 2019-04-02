@@ -46,6 +46,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.winnie</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
