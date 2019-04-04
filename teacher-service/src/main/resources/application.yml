@@ -26,3 +26,7 @@ pagehelper:
   reasonable: false
   support-methods-arguments: true
 
+logging:
+  config: classpath:logback-boot.xml
+
+

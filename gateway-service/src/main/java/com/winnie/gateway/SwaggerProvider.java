@@ -21,8 +21,8 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("学生系统","STUDENT-SERVICE"));
         resources.add(swaggerResource("教师系统","TEACHER-SERVICE"));
+        resources.add(swaggerResource("学生系统","STUDENT-SERVICE"));
         resources.add(swaggerResource("注册系统","EUREKA-SERVICE"));
         return resources;
     }

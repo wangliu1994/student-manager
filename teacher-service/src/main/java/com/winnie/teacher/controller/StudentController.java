@@ -9,6 +9,7 @@ import com.winnie.teacher.dto.response.StudentResDto;
 import com.winnie.teacher.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 @Api(tags = "学生信息管理")
+@Slf4j
 public class StudentController {
     @Resource
     private StudentService studentService;
@@ -30,6 +32,7 @@ public class StudentController {
     @ApiOperation(value = "获取学生列表")
     public BaseResult<BasePageResult<List<StudentResDto>>> getAll(
             @RequestParam("pageSize") int pagSize, @RequestParam("pageNum") int pageNum) {
+        log.info("获取学生列表");
         BasePageResult<List<StudentResDto>> studentResDtos = studentService.getAll(pagSize, pageNum);
         return ResultUtils.genSuccessResult(studentResDtos);
     }
@@ -37,6 +40,7 @@ public class StudentController {
     @GetMapping("/get")
     @ApiOperation(value = "获取学生详情")
     public BaseResult<StudentResDto> get(@RequestParam("id") String id) {
+        log.info("获取学生详情");
         StudentResDto studentResDto = studentService.getByPk(id);
         return ResultUtils.genSuccessResult(studentResDto);
     }
@@ -45,6 +49,7 @@ public class StudentController {
     @ApiOperation(value = "条件查询学生")
     public BaseResult<BasePageResult<List<StudentResDto>>> query(
             @RequestBody List<String> ids, @RequestParam("pageSize") int pagSize, @RequestParam("pageNum") int pageNum) {
+        log.info("条件查询学生");
         BasePageResult<List<StudentResDto>> studentResDtos = studentService.query(ids, pagSize, pageNum);
         return ResultUtils.genSuccessResult(studentResDtos);
     }
@@ -52,6 +57,7 @@ public class StudentController {
     @PostMapping("/add")
     @ApiOperation(value = "新增学生信息")
     public BaseResult add(@RequestBody StudentReqDto student) {
+        log.info("新增学生信息");
         int addResult = studentService.add(student);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
@@ -63,6 +69,7 @@ public class StudentController {
     @PutMapping("/edit")
     @ApiOperation(value = "编辑学生信息")
     public BaseResult edit(@RequestBody StudentReqDto student) {
+        log.info("编辑学生信息");
         int addResult = studentService.edit(student);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
@@ -74,6 +81,7 @@ public class StudentController {
     @DeleteMapping("/del")
     @ApiOperation(value = "删除学生信息")
     public BaseResult del(@RequestParam("id") String id) {
+        log.info("删除学生信息");
         int addResult = studentService.del(id);
         if (addResult > 0) {
             return ResultUtils.genSuccessResult();
