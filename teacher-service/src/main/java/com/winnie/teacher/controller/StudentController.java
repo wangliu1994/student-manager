@@ -45,6 +45,14 @@ public class StudentController {
         return ResultUtils.genSuccessResult(studentResDto);
     }
 
+    @GetMapping("/getCache")
+    @ApiOperation(value = "获取学生缓存")
+    public BaseResult<Object> getCache(@RequestParam("id") String id) {
+        log.info("获取学生缓存");
+        Object result = studentService.getCacheByPk(id);
+        return ResultUtils.genSuccessResult(result);
+    }
+
     @PostMapping("/query")
     @ApiOperation(value = "条件查询学生")
     public BaseResult<BasePageResult<List<StudentResDto>>> query(

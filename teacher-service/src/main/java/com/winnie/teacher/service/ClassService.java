@@ -19,5 +19,7 @@ public interface ClassService {
 
     ClassResDto getByPk(String id);
 
+    String getCacheByPk(String id);
+
     List<ClassResDto> getAll();
 }

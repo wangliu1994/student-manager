@@ -3,8 +3,10 @@
     <springProperty scope="context" name="springAppName" source="spring.application.name" />
     <springProperty scope="context" name="logLevel" source="logging.level.root" defaultValue="info"/>
     <property name="log.path" value="/data/student-logs"/>
+    <!--"%black", "%red", "%green","%yellow","%blue", "%magenta","%cyan", "%white", "%gray",
+    "%boldRed","%boldGreen", "%boldYellow", "%boldBlue", "%boldMagenta","%boldCyan", "%boldWhite","%highlight"-->
     <property name="MY_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [TxId : %X{PtxId} , SpanId : %X{PspanId}] %-5level [%thread] %logger{36}:%L- %msg%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [TxId : %X{PtxId} , SpanId :  %X{PspanId}] %magenta(%-5level) [%thread] %cyan(%logger{36}):%L- %msg%n"/>
     <!-- 开发环境 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
@@ -105,7 +107,7 @@
     <logger name="com.winnie.teacher.dao" level="INFO"/>
 
     <!--Spring Boot原始的日志配置-->
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
 
     <root level="${logLevel}">
         <appender-ref ref="STDOUT"/>

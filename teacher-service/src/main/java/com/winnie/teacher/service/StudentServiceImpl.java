@@ -1,22 +1,21 @@
 package com.winnie.teacher.service;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.winnie.common.dto.BasePageResult;
+import com.winnie.teacher.dao.ClassMapper;
+import com.winnie.teacher.dao.StudentMapper;
+import com.winnie.teacher.dao.TeacherMapper;
 import com.winnie.teacher.dto.request.StudentReqDto;
 import com.winnie.teacher.dto.response.StudentResDto;
 import com.winnie.teacher.model.ClassInfo;
 import com.winnie.teacher.model.StudentInfo;
 import com.winnie.teacher.model.TeacherInfo;
 import com.winnie.teacher.utils.PageUtils;
+import com.winnie.teacher.utils.RedisUtils;
 import com.winnie.teacher.utils.StudentUtils;
-import com.winnie.teacher.dao.ClassMapper;
-import com.winnie.teacher.dao.StudentMapper;
-import com.winnie.teacher.dao.TeacherMapper;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -31,6 +30,7 @@ import java.util.List;
  */
 @Service
 @Transactional
+@Slf4j
 public class StudentServiceImpl implements StudentService {
     @Resource
     private StudentMapper studentInfoMapper;
@@ -40,6 +40,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Resource
     private ClassMapper classInfoMapper;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     @Override
     public int add(StudentReqDto studentDto) {
@@ -92,7 +95,15 @@ public class StudentServiceImpl implements StudentService {
                 studentResDto.setEnglishTeacherName(englishInfo.getName());
             }
         }
+        if(redisUtils.setObj("student" + id, studentResDto)){
+            log.info("缓存学生信息");
+        }
         return studentResDto;
+    }
+
+    @Override
+    public Object getCacheByPk(String id) {
+        return redisUtils.getObj("student" + id);
     }
 
     @Override

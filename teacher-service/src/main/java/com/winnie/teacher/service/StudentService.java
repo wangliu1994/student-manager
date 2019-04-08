@@ -1,11 +1,9 @@
 package com.winnie.teacher.service;
 
 
-import com.github.pagehelper.PageInfo;
 import com.winnie.common.dto.BasePageResult;
 import com.winnie.teacher.dto.request.StudentReqDto;
 import com.winnie.teacher.dto.response.StudentResDto;
-import com.winnie.teacher.model.StudentInfo;
 
 import java.util.List;
 
@@ -23,6 +21,8 @@ public interface StudentService {
     int del(String id);
 
     StudentResDto getByPk(String id);
+
+    Object getCacheByPk(String id);
 
     BasePageResult<List<StudentResDto>> query(List<String> ids, int pageSize, int pageNum);
 

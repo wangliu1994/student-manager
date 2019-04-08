@@ -38,6 +38,13 @@ public class TeacherController {
         return ResultUtils.genSuccessResult(teacherResDto);
     }
 
+    @GetMapping("/getCache")
+    @ApiOperation(value = "获取教师缓存")
+    public BaseResult<TeacherResDto> getCache(@RequestParam("id") String id) {
+        TeacherResDto teacherResDto = teacherService.getCacheByPk(id);
+        return ResultUtils.genSuccessResult(teacherResDto);
+    }
+
     @PostMapping("/add")
     @ApiOperation(value = "新增教师信息")
     public BaseResult add(@RequestBody TeacherResDto teacher) {

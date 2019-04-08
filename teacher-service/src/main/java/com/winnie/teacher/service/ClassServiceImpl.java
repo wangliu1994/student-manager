@@ -4,6 +4,8 @@ import com.winnie.teacher.dao.ClassMapper;
 import com.winnie.teacher.dto.response.ClassResDto;
 import com.winnie.teacher.model.ClassInfo;
 import com.winnie.teacher.utils.ClassUtils;
+import com.winnie.teacher.utils.RedisUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -16,9 +18,13 @@ import java.util.List;
  * @desc
  */
 @Service
+@Slf4j
 public class ClassServiceImpl implements ClassService {
     @Resource
     private ClassMapper classInfoMapper;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     @Override
     public int add(ClassResDto classInResDto) {
@@ -43,7 +49,15 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public ClassResDto getByPk(String id) {
         ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(id);
+        if(redisUtils.setStr("class" + id, classInfo.getName())){
+            log.info("缓存班级名称");
+        }
         return ClassUtils.convertClassInfo(classInfo);
+    }
+
+    @Override
+    public String getCacheByPk(String id) {
+        return redisUtils.getStr("class" + id);
     }
 
     @Override

@@ -19,5 +19,7 @@ public interface TeacherService {
 
     TeacherResDto getByPk(String id);
 
+    TeacherResDto getCacheByPk(String id);
+
     List<TeacherResDto> getAll();
 }

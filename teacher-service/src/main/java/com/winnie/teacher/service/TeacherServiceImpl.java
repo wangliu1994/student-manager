@@ -3,7 +3,9 @@ package com.winnie.teacher.service;
 import com.winnie.teacher.dao.TeacherMapper;
 import com.winnie.teacher.dto.response.TeacherResDto;
 import com.winnie.teacher.model.TeacherInfo;
+import com.winnie.teacher.utils.StringRedisUtils;
 import com.winnie.teacher.utils.TeacherUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -18,9 +20,13 @@ import java.util.List;
  */
 @Service
 @Transactional
+@Slf4j
 public class TeacherServiceImpl implements TeacherService {
     @Resource
     private TeacherMapper teacherInfoMapper;
+
+    @Resource
+    private StringRedisUtils stringRedisUtils;
 
     @Override
     public int add(TeacherResDto teacherResDto) {
@@ -45,7 +51,16 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResDto getByPk(String id) {
         TeacherInfo teacherInfo = teacherInfoMapper.selectByPrimaryKey(id);
-        return TeacherUtils.convertTeacherInfo(teacherInfo);
+        TeacherResDto teacherResDto = TeacherUtils.convertTeacherInfo(teacherInfo);
+        if (stringRedisUtils.set("teacher" + id, teacherResDto)) {
+            log.info("缓存教师信息");
+        }
+        return teacherResDto;
+    }
+
+    @Override
+    public TeacherResDto getCacheByPk(String id) {
+        return stringRedisUtils.get("teacher" + id, TeacherResDto.class);
     }
 
     @Override
