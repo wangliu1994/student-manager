@@ -11,6 +11,9 @@ spring:
     url: jdbc:mysql://localhost:3306/db_student?serverTimezone=UTC
     username: root
     password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall
 
 #自己实现xml mapper才需要配置此项
 mybatis:

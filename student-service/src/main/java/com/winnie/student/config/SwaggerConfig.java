@@ -1,4 +1,4 @@
-package com.winnie.student;
+package com.winnie.student.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

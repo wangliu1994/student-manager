@@ -1,4 +1,4 @@
-package com.winnie.teacher;
+package com.winnie.teacher.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
